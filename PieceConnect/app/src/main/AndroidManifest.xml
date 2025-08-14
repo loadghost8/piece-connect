@@ -1,0 +1,37 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.piececonnect">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+	<application
+		android:name=".App"
+		android:allowBackup="true"
+		android:label="Piece Connect"
+		android:icon="@mipmap/ic_launcher"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:theme="@style/Theme.PieceConnect">
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_key" />
+
+		<activity android:name=".ui.auth.AuthActivity" android:exported="false" />
+		<activity android:name=".ui.chat.ChatActivity" android:exported="false" />
+		<activity android:name=".ui.jobs.JobDetailsActivity" android:exported="false" />
+		<activity android:name=".ui.jobs.NewJobActivity" android:exported="false" />
+		<activity android:name=".ui.jobs.ApplicantsActivity" android:exported="false" />
+		<activity android:name=".ui.main.MainActivity" android:exported="false" />
+		<activity android:name=".ui.auth.SplashActivity" android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<service
+			android:name=".services.MyFirebaseMessagingService"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+			</intent-filter>
+		</service>
+	</application>
+</manifest>

@@ -1,0 +1,8 @@
+<resources>
+	<color name="pc_blue">#82B1FF</color>
+	<color name="pc_blue_dark">#4D7FFF</color>
+	<color name="pc_on_blue">#0B0B0F</color>
+	<color name="pc_surface">#121212</color>
+	<color name="pc_on_surface">#EDEDED</color>
+	<color name="pc_background">#121212</color>
+</resources>
