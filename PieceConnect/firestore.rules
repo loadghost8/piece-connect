@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+	match /databases/{database}/documents {
+		function isSignedIn() { return request.auth != null; }
+		function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+		function isIn(arr, uid) { return isSignedIn() && uid in arr; }
+
+		match /users/{userId} {
+			allow read: if isSignedIn();
+			allow create: if isOwner(request.auth.uid);
+			allow update, delete: if isOwner(userId);
+		}
+
+		match /jobs/{jobId} {
+			allow read: if true;
+			allow create: if isSignedIn();
+			allow update, delete: if isSignedIn() && request.resource.data.employerId == request.auth.uid;
+		}
+
+		match /applications/{applicationId} {
+			allow create: if isSignedIn() && request.resource.data.seekerId == request.auth.uid;
+			allow read: if isSignedIn();
+			allow update: if isSignedIn() && (
+				request.resource.data.seekerId == request.auth.uid ||
+				// Employer who owns the job can update
+				exists(/databases/$(database)/documents/jobs/$(request.resource.data.jobId)) &&
+				get(/databases/$(database)/documents/jobs/$(request.resource.data.jobId)).data.employerId == request.auth.uid
+			);
+			allow delete: if false;
+		}
+
+		match /chats/{chatId} {
+			allow read, write: if isSignedIn() && isIn(resource.data.participants, request.auth.uid);
+			match /messages/{messageId} {
+				allow read, write: if isSignedIn() && isIn(get(/databases/$(database)/documents/chats/$(chatId)).data.participants, request.auth.uid);
+			}
+		}
+	}
+}

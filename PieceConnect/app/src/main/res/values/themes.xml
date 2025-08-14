@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<style name="Theme.PieceConnect" parent="Theme.Material3.DayNight.NoActionBar">
+		<item name="colorPrimary">@color/pc_blue</item>
+		<item name="colorPrimaryContainer">@color/pc_blue_dark</item>
+		<item name="colorOnPrimary">@color/pc_on_blue</item>
+
+		<item name="colorSurface">@color/pc_surface</item>
+		<item name="colorOnSurface">@color/pc_on_surface</item>
+		<item name="android:windowLightStatusBar">true</item>
+		<item name="bottomNavigationStyle">@style/PieceConnect.BottomNav</item>
+	</style>
+
+	<style name="PieceConnect.BottomNav" parent="Widget.Material3.BottomNavigationView">
+		<item name="android:background">@color/pc_surface</item>
+		<item name="itemTextColor">@color/pc_on_surface</item>
+		<item name="itemIconTint">@color/pc_on_surface</item>
+	</style>
+</resources>
